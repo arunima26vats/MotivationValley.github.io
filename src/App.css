@@ -1,0 +1,271 @@
+/* Importing a soft, rounded font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
+
+/* Root variables (color palette used across the app) */
+:root {
+    --sky-blue: #a2d2ff;
+    --grass-green: #7fb069;
+    --cloud-white: #fdfaf1;
+    --sunset-orange: #ffafcc;
+    --wood-brown: #5d4037;
+    --primary: #457b9d;
+}
+
+/* Base styling for the entire page */
+body {
+    font-family: 'Comfortaa', cursive; /* Apply custom font */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    background-color: transparent;
+    color: var(--wood-brown); /* Default text color */
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Main app container (centered layout) */
+#app {
+    padding-top: 10000px; /* Creates scroll space (likely for animation effects) */
+    width: 100%;
+    max-width: 500px; /* Limits width for better readability */
+    margin: 0 auto; /* Centers horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 10; /* Keeps it above background elements */
+}
+
+/* Canvas used for animations or effects (like particles) */
+canvas {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    pointer-events: none; /* Allows clicks to pass through */
+    z-index: 5;
+}
+
+/* Background container for video or visuals */
+.bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2; /* Behind everything */
+    background-color: #000;
+}
+
+/* Background video styling */
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures full coverage */
+    transform: translateZ(0); /* Improves rendering performance */
+}
+
+/* Overlay on top of video (adds light tint effect) */
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Subtle white overlay */
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Main heading style */
+h1 {
+    text-align: center;
+    color: var(--primary);
+    font-size: 2rem;
+    text-shadow: 2px 2px 0px white; /* Soft shadow effect */
+    margin-bottom: 1.5rem;
+}
+
+/* Card displaying quotes */
+#quote-card {
+    background: rgba(255, 255, 255, 0.85); /* Semi-transparent */
+    padding: 2.5rem;
+    border-radius: 40px 15px 40px 15px; /* Decorative shape */
+    border: 2px solid white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 100%;
+    backdrop-filter: blur(8px); /* Glassmorphism effect */
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Button container (layout for controls) */
+.controls {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+}
+
+/* Base button styling */
+button {
+    font-family: 'Comfortaa', cursive;
+    padding: 12px 20px;
+    border-radius: 50px; /* Pill shape */
+    border: 2px solid white;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+/* New quote button */
+#new-quote-btn {
+    background: var(--sky-blue);
+    color: white;
+}
+
+/* Disabled state for new quote button */
+#new-quote-btn:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+}
+
+/* Like button styling */
+#like-btn {
+    background: #ffc8dd;
+    color: #b33a6e;
+}
+
+/* Sad button (secondary action) */
+#sad-btn {
+    background: var(--cloud-white);
+    color: var(--primary);
+    border: 2px solid var(--sky-blue);
+    font-size: 0.85rem;
+}
+
+/* Flexible header layout (used in multiple sections) */
+.flex-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* Search input styling */
+#search-bar {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 2px solid var(--sky-blue);
+    background: white;
+    font-family: 'Comfortaa', cursive;
+    outline: none;
+}
+
+/* Remove default list styling */
+ul {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+}
+
+/* Individual liked quote item */
+.liked-item {
+    background: rgba(255, 252, 242, 0.9);
+    padding: 18px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 6px solid var(--grass-green); /* Accent strip */
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.05);
+    transform: rotate(-0.5deg); /* Slight tilt for playful look */
+    backdrop-filter: blur(4px);
+}
+
+/* Alternate tilt for even items */
+.liked-item:nth-child(even) {
+    transform: rotate(0.8deg);
+}
+
+/* Text inside liked items */
+.quote-info {
+    flex: 1;
+    padding-right: 15px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Delete button for removing liked quotes */
+.delete-btn {
+    background: #f8ad9d !important;
+    color: white !important;
+    border: none !important;
+    width: 36px;
+    height: 36px;
+    border-radius: 50% !important;
+    font-size: 1rem;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 3px 0px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Hover effect for delete button */
+.delete-btn:hover {
+    background: #fa8072 !important;
+    transform: scale(1.1) rotate(15deg) !important;
+}
+
+/* Loader text styling */
+#loader {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+/* Utility class to hide elements */
+.hidden {
+    display: none;
+}
+
+/* Favorites section heading */
+#favorites-section h2 {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+/* Title for collections (like "Favorites") */
+.collection-title {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 2px solid var(--sky-blue);
+    background: white;
+    display: inline-block;
+    font-size: 0.9rem !important;
+    margin: 0;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Updated flex header with spacing */
+.flex-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 10px; /* Adds spacing between items */
+}
